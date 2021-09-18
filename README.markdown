@@ -27,10 +27,11 @@ The sales data for this spike was faked with the following command:
 
 ```command
 $ for region in $(jq < meta/regions.json --raw-output '.[]'); do
-  for month in $(seq 9); do
+  for month in {01..12}; do
     mkdir -p sales-data/"$region"
-    echo "sku,units" > "sales-data/$region/2021-0$month.csv"
-    repeat 5 echo "$RANDOM,$RANDOM" >> "sales-data/$region/2021-0$month.csv"
+    month_file=sales-data/"$region"/2021-"$month".csv
+    echo "sku,units" > $month_file
+    repeat 5 echo "$RANDOM,$RANDOM" >> $month_file
   done
 done
 ```
