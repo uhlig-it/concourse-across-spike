@@ -2,6 +2,7 @@ jobs:
   - name: update-instances-per-region
     plan:
     - get: pipeline-config
+      trigger: true
     - get: regions
       trigger: true
     - load_var: regions

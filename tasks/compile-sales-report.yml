@@ -17,4 +17,4 @@ run:
     - -c
     - |
       echo "Region '$region' has the following sales data available:"
-      ls -l sales-data/$region/*.csv
+      ls -l sales-data/sales-data/$region/*.csv

@@ -1,2 +1,3 @@
 pipeline.yml
 private-config.yml
+.envrc
