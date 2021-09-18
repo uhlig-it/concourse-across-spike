@@ -1,9 +1,9 @@
 jobs:
   - name: cross-product
     plan:
-    - get: foo
+    - get: src
     - load_var: packages
-      file: foo/packages-to-build.json
+      file: src/meta/packages-to-build.json
     - across:
       - var: package
         values: ((.:packages))
@@ -12,13 +12,13 @@ jobs:
           - '1.15'
           - '1.16'
       task: build
-      file: foo/build.yml
+      file: src/tasks/build.yml
       vars:
         go_version: ((.:go_version))
         package: ((.:package))
 
 resources:
-  - name: foo
+  - name: src
     type: git
     icon: github
     source:
