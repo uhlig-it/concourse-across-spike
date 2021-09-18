@@ -2,6 +2,7 @@ jobs:
   - name: cross-product
     plan:
     - get: src
+      trigger: true
     - load_var: packages
       file: src/meta/packages-to-build.json
     - across:
