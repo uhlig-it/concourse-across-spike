@@ -1,22 +1,22 @@
 jobs:
-  - name: cross-product
+  - name: cross-product-task
     plan:
     - get: src
       trigger: true
     - load_var: packages
       file: src/meta/packages-to-build.json
-    - across:
+    - task: build
+      file: src/tasks/build.yml
+      vars:
+        go_version: ((.:go_version))
+        package: ((.:package))
+      across:
       - var: package
         values: ((.:packages))
       - var: go_version
         values:
           - '1.15'
           - '1.16'
-      task: build
-      file: src/tasks/build.yml
-      vars:
-        go_version: ((.:go_version))
-        package: ((.:package))
 
 resources:
   - name: src
