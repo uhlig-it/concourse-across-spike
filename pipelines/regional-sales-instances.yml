@@ -1,0 +1,32 @@
+jobs:
+  - name: update-instances-per-region
+    plan:
+    - get: pipeline-config
+    - get: regions
+      trigger: true
+    - load_var: regions
+      file: src/meta/regions.json
+    - set_pipeline: regional-sales
+      file: pipeline-config/pipelines/regional-sales.yml
+      instance_vars:
+        region: ((.:region))
+      across:
+      - var: region
+        values: ((.:regions))
+
+resources:
+  - name: pipeline-config
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:uhlig-it/concourse-across-spike.git
+      private_key: ((github-ssh-key))
+      paths: [ pipelines/regional-sales.yml ]
+
+  - name: regions
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:uhlig-it/concourse-across-spike.git
+      private_key: ((github-ssh-key))
+      paths: [ meta/regions.json ]

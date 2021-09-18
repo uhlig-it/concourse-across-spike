@@ -1,0 +1,16 @@
+jobs:
+  - name: build-region
+    plan:
+    - get: ci
+    - task: build-sales-report
+      file: ci/tasks/build-region.yml
+      params:
+        region: ((region))
+
+resources:
+  - name: ci
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:uhlig-it/concourse-across-spike.git
+      private_key: ((github-ssh-key))
