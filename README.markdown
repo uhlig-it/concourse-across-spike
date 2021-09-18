@@ -4,11 +4,9 @@ This is a spike on dynamically creating Concourse pipeline instances from an ext
 
 # Idea
 
-We have a list of regions where we compile a sales report for in a task. The list of regions is somewhat dynamic, and we decided to create a separate pipeline instance for each region.
+We have a [list of regions](meta/regions.json) where we compile a [sales report for in a task](tasks/compile-sales-report.yml). The list of regions is somewhat dynamic, and we decided to create a separate pipeline instance for each region.
 
-We will create a "meta" pipeline `regional-sales-instances` that updates all instances of the `regional-sales` pipeline whenever the list of regions changes.
-
-TODO How to we deal with regions going away? Perhaps we'd delete or archive the pipeline.
+We will create a "meta" pipeline [`regional-sales-instances`](pipelines/regional-sales-instances.yml) that updates all instances of the [`regional-sales`](pipelines/regional-sales.yml) pipeline whenever the list of regions changes.
 
 # Setting the meta pipeline
 
@@ -20,6 +18,8 @@ $ fly \
     --config pipelines/regional-sales-instances.yml \
     --load-vars-from="private-config.yml"
 ```
+
+This will set all the instances of the `regional-sales` pipeline based on the [list of regions](meta/regions.json).
 
 # Sales Data
 
