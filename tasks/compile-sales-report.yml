@@ -5,6 +5,9 @@ image_resource:
   type: docker-image
   source: { repository: alpine }
 
+inputs:
+  - name: sales-data
+
 params:
   region: ((region))
 
@@ -13,4 +16,5 @@ run:
   args:
     - -c
     - |
-      echo "Building sales report for region '$region'"
+      echo "Region '$region' has the following sales data available:"
+      ls -l sales-data/$region/*.csv

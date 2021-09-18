@@ -2,8 +2,10 @@ jobs:
   - name: build-region
     plan:
     - get: ci
-    - task: build-sales-report
-      file: ci/tasks/build-region.yml
+    - get: sales-data
+      trigger: true
+    - task: compile-sales-report
+      file: ci/tasks/compile-sales-report.yml
       params:
         region: ((region))
 
@@ -14,3 +16,12 @@ resources:
     source:
       uri: git@github.com:uhlig-it/concourse-across-spike.git
       private_key: ((github-ssh-key))
+      paths: [ tasks/* ]
+
+  - name: sales-data
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:uhlig-it/concourse-across-spike.git
+      private_key: ((github-ssh-key))
+      paths: [ sales-data/* ]

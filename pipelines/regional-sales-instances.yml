@@ -5,9 +5,11 @@ jobs:
     - get: regions
       trigger: true
     - load_var: regions
-      file: src/meta/regions.json
+      file: regions/meta/regions.json
     - set_pipeline: regional-sales
       file: pipeline-config/pipelines/regional-sales.yml
+      vars:
+        github-ssh-key: ((github-ssh-key)) # not needed if we have secrets in vault
       instance_vars:
         region: ((.:region))
       across:
