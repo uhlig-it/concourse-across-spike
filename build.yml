@@ -6,6 +6,8 @@ image_resource:
   source: { repository: alpine }
 
 params:
+  go_version: ((go_version))
+  package: ((package))
 
 run:
   path: sh
