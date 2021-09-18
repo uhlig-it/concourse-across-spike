@@ -1,0 +1,26 @@
+jobs:
+  - name: cross-product
+    plan:
+    - get: foo
+    - load_var: packages
+      file: foo/packages-to-build.json
+    - across:
+      - var: package
+        values: ((.:packages))
+      - var: go_version
+        values:
+          - '1.15'
+          - '1.16'
+      task: build
+      file: foo/build.yml
+      vars:
+        go_version: ((.:go_version))
+        package: ((.:package))
+
+resources:
+  - name: foo
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:uhlig-it/concourse-across-spike.git
+      private_key: ((github-ssh-key))

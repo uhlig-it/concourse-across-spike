@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+CONCOURSE_TARGET=uh
+PIPELINE_NAME=spike-across
+SCRIPT_PATH=$(dirname "$(realpath -s $0)")
+
+fly \
+  set-pipeline \
+  --target "$CONCOURSE_TARGET" \
+  --pipeline="$PIPELINE_NAME" \
+  --config="${SCRIPT_PATH}/pipeline.yml" \
+  --load-vars-from="${SCRIPT_PATH}/private-config.yml"
