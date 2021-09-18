@@ -24,4 +24,4 @@ resources:
     source:
       uri: git@github.com:uhlig-it/concourse-across-spike.git
       private_key: ((github-ssh-key))
-      paths: [ sales-data/* ]
+      paths: [ sales-data/((region))/*.csv ]
